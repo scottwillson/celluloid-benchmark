@@ -12,11 +12,10 @@ Gem::Specification.new do |spec|
 forpec high concurrency. Use Mechanize for a realistic (albeit non-JavaScript) browser client."
   spec.author      = "Scott Willson"
   spec.email       = "scott.willson@gmail.com"
-  spec.files       = Dir[ "lib/*.rb" ] + [ "LICENSE", "README.md" ] + Dir[ "bin/*" ]
+  spec.files       = Dir[ "lib/**/*.rb" ] + [ "LICENSE", "README.md" ] + Dir[ "bin/*" ]
   spec.homepage    = "https://github.com/scottwillson/celluloid-benchmark"
 
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = Dir[ "test/**/*" ]
   spec.require_paths = [ "lib" ]
 
   # Duplication with Gemfile but I like to explicitly require gems
