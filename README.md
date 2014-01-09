@@ -125,7 +125,7 @@ Develop
     ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
     curl -L https://get.rvm.io | bash
     rvm install rbx-2.2.1
-    git clone
+    git clone git@github.com:scottwillson/celluloid-benchmark.git
     cd celluloid-benchmark
     rvm gemset use celluloid-benchmark --create
     bundle
