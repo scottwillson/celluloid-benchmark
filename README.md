@@ -5,11 +5,14 @@ for high concurrency. Use [Mechanize](http://mechanize.rubyforge.org) for a real
 
 Getting Started
 ===============
-    ruby run.rb test/files/runner_test_session.rb
+    gem install celluloid-benchmark
+    echo "benchmark :home_page, 1
+    get 'https://github.com/scottwillson/celluloid-benchmark'" > session.rb
+    celluloid-benchmark session.rb 1
 
 Congrats! You just load-tested the project's Github page.
 
-For your own tests, create a session file and pass its path to run.rb.
+For your own tests, create a session file and pass its path to celluloid-benchmark.
 
 Simple scenario
 ---------------
@@ -73,7 +76,7 @@ Celluloid Benchmark agents delegate calls to Mechanize. If you need something mo
 than the examples, check out the [Mechanize API](http://mechanize.rubyforge.org/HTTP/Agent.html) and call it directly with `browser.` in your test scenario.
 
 For a longer test, pass in a second duration argument (seconds):
-    ruby run.rb my_test_session.rb 180
+    celluloid-benchmark my_test_session.rb 180
 
 Why
 ===

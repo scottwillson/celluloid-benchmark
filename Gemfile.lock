@@ -56,9 +56,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  celluloid
+  celluloid (~> 0.15)
   fakeweb
-  mechanize
+  mechanize (~> 2.7)
   minitest
   racc
   rack-contrib

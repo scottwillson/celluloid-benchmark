@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
-gem "celluloid", require: false
-gem "mechanize", require: false
+# Duplication with gemspec but I like to explicitly require gems
+
+gem "celluloid", "~> 0.15", require: false
+gem "mechanize", "~> 2.7", require: false
 # MRI includes by default, but Rubinius does not
 gem "racc"
 
