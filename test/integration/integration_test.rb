@@ -45,7 +45,7 @@ module CelluloidBenchmark
           if response.code.to_i == 200
             return true
           end
-        rescue Errno::ECONNREFUSED
+        rescue Errno::ECONNREFUSED, Net::HTTP::Persistent::Error
           # Ignore. Server might be starting up.
         end
         sleep 1
