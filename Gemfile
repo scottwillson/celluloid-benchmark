@@ -8,7 +8,7 @@ gem "racc"
 group :test do
   gem "fakeweb", require: false
   gem "minitest", require: false
-  gem "puma", require: false
   gem "rack-contrib", require: false
+  gem "thin", require: false
   gem "timecop", require: false
 end
