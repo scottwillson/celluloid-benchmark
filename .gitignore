@@ -1,0 +1,16 @@
+*~
+.*.swo
+.*.swp
+.DS_Store
+.rbenv-vars
+.rbenv-version
+.ruby-gemset
+.ruby-gemset
+.ruby-version
+.ruby-version
+.rvmrc*
+.tm_properties
+/.bundle
+bin/
+log/*.log
+tmp
