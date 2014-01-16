@@ -18,15 +18,7 @@ module CelluloidBenchmark
 
     def initialize(browser = Mechanize.new)
       @browser = browser
-
-      browser.pre_connect_hooks << proc do |agent, request|
-        self.request_start_time = Time.now
-      end
-
-      browser.post_connect_hooks << proc do |agent, uri, response, body|
-        self.request_end_time = Time.now
-        benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
-      end
+      add_browser_timing_hooks
     end
 
     def run_session(session, benchmark_run, duration)
@@ -74,6 +66,20 @@ module CelluloidBenchmark
 
     def data_source(key)
       data_sources[key]
+    end
+    
+    
+    private
+    
+    def add_browser_timing_hooks
+      browser.pre_connect_hooks << proc do |agent, request|
+        self.request_start_time = Time.now
+      end
+
+      browser.post_connect_hooks << proc do |agent, uri, response, body|
+        self.request_end_time = Time.now
+        benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
+      end
     end
   end
 end
