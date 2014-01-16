@@ -1,10 +1,13 @@
 require "mechanize"
+require_relative "data_sources"
 
 module CelluloidBenchmark
   # Actor that models a person using a web browser. Runs a test scenario. Delegates web browsing to 
   # instance of a Mechanize Agent.
   class Visitor
     include Celluloid
+    include CelluloidBenchmark::DataSources
+    
     extend Forwardable
 
     def_delegators :@browser, :add_auth, :get, :submit, :transact
@@ -41,24 +44,6 @@ module CelluloidBenchmark
     def benchmark(label, threshold = 0.5)
       self.current_request_label = label
       self.current_request_threshold = threshold
-    end
-
-    def random_data(key)
-      data_source(key).sample
-    end
-    
-    def data_sources
-      @data_sources ||= Hash.new do |hash, key|
-        hash[key] = File.readlines("tmp/data/#{key}s.csv")
-      end
-    end
-    
-    def data_sources=(hash)
-      @data_sources = hash
-    end
-
-    def data_source(key)
-      data_sources[key]
     end
     
     
