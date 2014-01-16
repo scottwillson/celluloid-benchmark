@@ -44,9 +44,9 @@ module CelluloidBenchmark
     end
   
     def requests
-      response_times.values.compact.map(&:size).reduce(&:+) || 0
+      response_times.values.compact.map(&:size).reduce(0, &:+)
     end
-  
+    
     def benchmarks
       response_times.map do |label, response_times|
         CelluloidBenchmark::Benchmark.new label, thresholds[label], response_times, response_codes[label]
