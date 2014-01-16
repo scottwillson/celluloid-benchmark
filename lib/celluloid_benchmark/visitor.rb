@@ -30,14 +30,7 @@ module CelluloidBenchmark
         begin
           instance_eval session
         rescue Mechanize::ResponseCodeError => e
-          self.request_end_time = Time.now
-          benchmark_run.async.log(
-            e.response_code, 
-            request_start_time, 
-            request_end_time, 
-            current_request_label, 
-            current_request_threshold
-          )
+          log_response_code_error e
         end
         
         elapsed_time = Time.now - started_at
@@ -80,6 +73,17 @@ module CelluloidBenchmark
         self.request_end_time = Time.now
         benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
       end
+    end
+    
+    def log_response_code_error(error)
+      self.request_end_time = Time.now
+      benchmark_run.async.log(
+        e.response_code, 
+        request_start_time, 
+        request_end_time, 
+        current_request_label, 
+        current_request_threshold
+      )
     end
   end
 end
