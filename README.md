@@ -133,3 +133,8 @@ Develop
     rvm gemset use celluloid-benchmark --create
     bundle
     rake
+
+CI
+==
+    https://travis-ci.org/scottwillson/celluloid-benchmark
+    
