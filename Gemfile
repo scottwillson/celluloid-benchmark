@@ -4,8 +4,12 @@ source "https://rubygems.org"
 
 gem "celluloid", "~> 0.15", require: false
 gem "mechanize", "~> 2.7", require: false
-# MRI includes by default, but Rubinius does not
-gem "racc"
+gem "rake", require: false
+
+group :rbx do
+  # MRI includes by default, but Rubinius does not
+  gem "racc"
+end
 
 group :test do
   gem "fakeweb", require: false
@@ -17,6 +21,8 @@ group :test do
   gem "rubysl-logger"
   gem "rubysl-optparse"
   gem "rubysl-open3"
+  gem "rubysl-singleton"
+  gem "rubysl-mutex_m"
   gem "thin", require: false
   gem "timecop", require: false
 end
