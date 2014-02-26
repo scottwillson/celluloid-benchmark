@@ -1,3 +1,4 @@
+require "minitest"
 require "minitest/autorun"
 require "timecop"
 require_relative "../../lib/celluloid_benchmark/benchmark_run"

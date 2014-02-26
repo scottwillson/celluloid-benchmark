@@ -1,3 +1,4 @@
+require "minitest"
 require "minitest/autorun"
 require "celluloid"
 require_relative "../../lib/celluloid_benchmark/visitor"
