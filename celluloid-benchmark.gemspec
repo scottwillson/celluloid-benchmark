@@ -22,4 +22,5 @@ forpec high concurrency. Use Mechanize for a realistic (albeit non-JavaScript) b
   spec.add_runtime_dependency "celluloid", "~> 0.15"
   spec.add_runtime_dependency "mechanize", "~> 2.7"
   spec.add_runtime_dependency "racc", "~> 1"
+  spec.add_runtime_dependency "mime-types", "~> 1.16"
 end
