@@ -63,7 +63,7 @@ module CelluloidBenchmark
     def log_response_code_error(error)
       self.request_end_time = Time.now
       benchmark_run.async.log(
-        e.response_code, 
+        error.response_code, 
         request_start_time, 
         request_end_time, 
         current_request_label, 
