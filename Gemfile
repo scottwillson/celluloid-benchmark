@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gem "celluloid", "~> 0.15", require: false
 gem "mechanize", "~> 2.7", require: false
-gem "mime-types", "~> 1.16", require: false
+gem "mime-types", "~> 1.25", require: false
 gem "rake", require: false
 
 group :rbx do

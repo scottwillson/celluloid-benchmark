@@ -42,7 +42,7 @@ GEM
       rubysl-shellwords (~> 2.0)
     rubysl-shellwords (2.0.0)
     rubysl-singleton (2.0.0)
-    thin (1.6.1)
+    thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
@@ -62,7 +62,7 @@ DEPENDENCIES
   celluloid (~> 0.15)
   fakeweb
   mechanize (~> 2.7)
-  mime-types (~> 1.16)
+  mime-types (~> 1.25)
   minitest
   racc
   rack-contrib
