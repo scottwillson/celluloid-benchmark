@@ -3,13 +3,13 @@ module CelluloidBenchmark
     def random_data(key)
       data_source(key).sample
     end
-    
+
     def data_sources
       @data_sources ||= Hash.new do |hash, key|
-        hash[key] = File.readlines("tmp/data/#{key}s.csv")
+        hash[key] = File.readlines("tmp/data/#{key}s.csv").map(&:strip)
       end
     end
-    
+
     def data_sources=(hash)
       @data_sources = hash
     end
