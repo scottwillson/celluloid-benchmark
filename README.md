@@ -1,6 +1,6 @@
 Celluloid Benchmark realistically load tests websites.
 
-Write expressive, concise load tests in Ruby. Use [Rubinius](http://rubini.us) and [Celluloid](https://github.com/celluloid/celluloid) 
+Write expressive, concise load tests in Ruby. Use [Rubinius](http://rubini.us) and [Celluloid](https://github.com/celluloid/celluloid)
 for high concurrency. Use [Mechanize](http://mechanize.rubyforge.org) for a realistic (albeit non-JavaScript) browser client.
 
 Getting Started
@@ -19,7 +19,7 @@ Simple scenario
     benchmark :home_page, 1
     get "https://github.com/scottwillson/celluloid-benchmark"
 
-`benchmark :label, duration` means "measure the following requests and group them under 'label'". 
+`benchmark :label, duration` means "measure the following requests and group them under 'label'".
 Duration is optional and defaults to 0.3 seconds.
 
 Find and click a link
@@ -52,7 +52,7 @@ Simulate AJAX
 
 Test data
 ---------
-Because test scenarios are plain Ruby, you can drive tests in many different ways. The 
+Because test scenarios are plain Ruby, you can drive tests in many different ways. The
 [Faker gem](http://rubydoc.info/github/stympy/faker/master/frames) is handy
 for random, realistic test data:
 
@@ -72,7 +72,7 @@ Celluloid Benchmark can also pull random test data from CSV files. For example:
 
 `random_data(:post_zone)` pulls a random line from tmp/data/post_zones.csv
 
-Celluloid Benchmark agents delegate calls to Mechanize. If you need something more complicated 
+Celluloid Benchmark agents delegate calls to Mechanize. If you need something more complicated
 than the examples, check out the [Mechanize API](http://mechanize.rubyforge.org/HTTP/Agent.html) and call it directly with `browser.` in your test scenario.
 
 For a longer test, pass in a second duration argument (seconds):
@@ -81,11 +81,11 @@ For a longer test, pass in a second duration argument (seconds):
 Why
 ===
 I need to simulate a lot of realistic traffic against preproduction code.
-There are many good tools that can put a high load on a static URL (e.g., [ab](http://httpd.apache.org/docs/2.2/programs/ab.html)), and there are a few tools 
-(e.g., [Tsung](http://tsung.erlang-projects.org)) that can generate realistic multiple-URL loads. By "realistic" I mean: follow links, maintain 
-session state from one page to the next, simulate different types of simultaneous visitors (5% admin users + 10% 
-business customers + 75% consumers). I found it difficult to maintain complex scenarios. Our Tsung tests, 
-for instance, exploded into many ERB files that concatenated into a giant Tsung XML config (with some custom Erlang 
+There are many good tools that can put a high load on a static URL (e.g., [ab](http://httpd.apache.org/docs/2.2/programs/ab.html)), and there are a few tools
+(e.g., [Tsung](http://tsung.erlang-projects.org)) that can generate realistic multiple-URL loads. By "realistic" I mean: follow links, maintain
+session state from one page to the next, simulate different types of simultaneous visitors (5% admin users + 10%
+business customers + 75% consumers). I found it difficult to maintain complex scenarios. Our Tsung tests,
+for instance, exploded into many ERB files that concatenated into a giant Tsung XML config (with some custom Erlang
 functions). I also wanted control over recording and displaying test results.
 
 Wouldn't it be nice to just write Ruby?
@@ -94,7 +94,7 @@ Yes, expect for that Ruby GIL issue. Which led me to Rubinius and Celluloid.
 
 Rubinius is a concurrency-friendly implementation of Ruby, and Celluloid is a nice Ruby actor framework.
 
-Celluloid also works with MRI 1.9 and 2.0, though Celluloid Benchmark can generate more concurrent load with 
+Celluloid also works with MRI 1.9 and 2.0, though Celluloid Benchmark can generate more concurrent load with
 Rubinius. [JRuby](http://jruby.org) should also work well, maybe better.
 
 I've just added features I need, but it should be easy to add more. For example:
@@ -107,20 +107,20 @@ Alternatives
 
 Simple
 ------
-[ab (Apache Bench)](http://httpd.apache.org/docs/2.2/programs/ab.html)  
+[ab (Apache Bench)](http://httpd.apache.org/docs/2.2/programs/ab.html)
 
-[httperf](http://www.hpl.hp.com/research/linux/httperf/)  
+[httperf](http://www.hpl.hp.com/research/linux/httperf/)
 
-[siege](http://freecode.com/projects/siege)  
+[siege](http://freecode.com/projects/siege)
 
 
 Complex
 -------
-[Tsung](http://tsung.erlang-projects.org)  
+[Tsung](http://tsung.erlang-projects.org)
 
-[The Grinder](http://grinder.sourceforge.net)  
+[The Grinder](http://grinder.sourceforge.net)
 
-[JMeter](http://jmeter.apache.org)  
+[JMeter](http://jmeter.apache.org)
 
 
 Develop
@@ -137,4 +137,7 @@ Develop
 CI
 ==
     https://travis-ci.org/scottwillson/celluloid-benchmark
-    
+
+
+[![Build Status](https://travis-ci.org/scottwillson/celluloid-benchmark.svg?branch=master)](https://travis-ci.org/scottwillson/celluloid-benchmark)
+[![Code Climate](https://codeclimate.com/github/scottwillson/celluloid-benchmark.png)](https://codeclimate.com/github/scottwillson/celluloid-benchmark)
