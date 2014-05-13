@@ -1,4 +1,4 @@
 script: rake
 
 rvm:
-  - "rbx-2.2.5"
+  - "rbx-2"
