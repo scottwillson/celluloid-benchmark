@@ -8,8 +8,8 @@ module CelluloidBenchmark
   class Runner
     def self.run(session_path, duration = 10)
       raise("session_path is required") unless session_path
-      raise("'#{session_path}' does not exist")  unless File.exists?(session_path)
-      
+      raise("'#{session_path}' does not exist") unless File.exists?(session_path)
+
       visitor_group = VisitorGroup.run!
       benchmark_run = Celluloid::Actor[:benchmark_run]
 
@@ -20,7 +20,7 @@ module CelluloidBenchmark
 
       benchmark_run
     end
-    
+
     def self.run_sessions(session_path, benchmark_run, duration)
       session = File.read(session_path)
       visitors = Celluloid::Actor[:visitor_pool]
