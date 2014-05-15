@@ -22,6 +22,7 @@ module CelluloidBenchmark
     def initialize(browser = Mechanize.new)
       @browser = browser
       add_browser_timing_hooks
+      browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
     end
 
     def run_session(session, benchmark_run, duration)
@@ -44,6 +45,15 @@ module CelluloidBenchmark
     def benchmark(label, threshold = 0.5)
       self.current_request_label = label
       self.current_request_threshold = threshold
+    end
+
+    def browser_type(value)
+      case value
+      when :iphone
+        browser.user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
+      else
+        browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
+      end
     end
 
 

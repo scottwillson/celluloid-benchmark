@@ -76,5 +76,11 @@ module CelluloidBenchmark
       visitor.post "/"
       visitor.put "/"
     end
+
+    def test_browser_type
+      browser = MockBrowser.new
+      visitor = Visitor.new(browser)
+      user_agent_alias
+    end
   end
 end
