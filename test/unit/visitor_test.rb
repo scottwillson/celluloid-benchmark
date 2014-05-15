@@ -8,7 +8,7 @@ module CelluloidBenchmark
   # not a unit test
   class VisitorTest < Minitest::Test
     class MockBrowser
-      attr_accessor :post_connect_hooks, :pre_connect_hooks, :uris
+      attr_accessor :post_connect_hooks, :pre_connect_hooks, :user_agent, :uris
 
       def initialize
         @pre_connect_hooks = []
@@ -80,7 +80,7 @@ module CelluloidBenchmark
     def test_browser_type
       browser = MockBrowser.new
       visitor = Visitor.new(browser)
-      user_agent_alias
+      visitor.browser_type :mobile
     end
   end
 end
