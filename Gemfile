@@ -6,6 +6,7 @@ gem "celluloid", "~> 0.15", require: false
 gem "mechanize", "~> 2.7", require: false
 gem "mime-types", "~> 1.25", require: false
 gem "rake", require: false
+gem "os", require: false
 
 group :rbx do
   # MRI includes by default, but Rubinius does not

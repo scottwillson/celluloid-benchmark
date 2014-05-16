@@ -30,6 +30,7 @@ GEM
     nokogiri (1.6.1-java)
       mini_portile (~> 0.5.0)
     ntlm-http (0.1.1)
+    os (0.9.6)
     racc (1.4.11)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -64,6 +65,7 @@ DEPENDENCIES
   mechanize (~> 2.7)
   mime-types (~> 1.25)
   minitest
+  os
   racc
   rack-contrib
   rake
