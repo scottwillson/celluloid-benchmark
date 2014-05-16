@@ -6,11 +6,12 @@ Celluloid.logger = nil
 module CelluloidBenchmark
   # Run a scenario in several Visitors and return a BenchmarkRun
   class Runner
-    def self.run(session_path, duration = 10)
+    def self.run(session_path, duration = 10, visitors = nil)
       raise("session_path is required") unless session_path
       raise("'#{session_path}' does not exist") unless File.exists?(session_path)
 
       visitor_group = VisitorGroup.run!
+      set_visitors_pool_size visitors
       benchmark_run = Celluloid::Actor[:benchmark_run]
 
       benchmark_run.mark_start
@@ -29,6 +30,12 @@ module CelluloidBenchmark
         futures << visitors.future.run_session(session, benchmark_run, duration)
       end
       futures
+    end
+
+    def self.set_visitors_pool_size(size)
+      if size && size.to_i > 0
+        Visitor.pool.size = size.to_i + 2
+      end
     end
   end
 end
