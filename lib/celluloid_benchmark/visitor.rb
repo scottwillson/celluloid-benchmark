@@ -32,7 +32,7 @@ module CelluloidBenchmark
       started_at = Time.now
       until elapsed_time >= duration
         begin
-          instance_eval session
+          eval_session session
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
         end
@@ -72,6 +72,11 @@ module CelluloidBenchmark
         self.request_end_time = Time.now
         benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
       end
+    end
+
+    # Encapsulate in method so sessions can call return
+    def eval_session(session)
+      instance_eval session
     end
 
     def log_response_code_error(error)
