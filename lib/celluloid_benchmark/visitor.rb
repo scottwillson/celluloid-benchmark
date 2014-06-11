@@ -1,4 +1,5 @@
 require "mechanize"
+require "multi_json"
 require_relative "data_sources"
 
 module CelluloidBenchmark
@@ -58,6 +59,18 @@ module CelluloidBenchmark
       else
         browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
       end
+    end
+
+    def get_json(uri)
+      get uri, [], nil, { "Accept" => "application/json, text/javascript, */*; q=0.01" }
+    end
+
+    def post_json(uri, query)
+      post(
+        uri,
+        MultiJson.dump(query),
+        { "Content-Type" => "application/json", "Accept" => "application/json, text/javascript, */*; q=0.01" }
+      )
     end
 
 

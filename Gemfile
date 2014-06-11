@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem "celluloid", "~> 0.16.0.pre", git: "https://github.com/celluloid/celluloid.git", require: false
 gem "mechanize", "~> 2.7", require: false
 gem "mime-types", "~> 1.25", require: false
+gem "multi_json", require: false
 gem "rake", require: false
 
 group :rbx do

@@ -8,20 +8,25 @@ module CelluloidBenchmark
   # not a unit test
   class VisitorTest < Minitest::Test
     class MockBrowser
-      attr_accessor :post_connect_hooks, :pre_connect_hooks, :user_agent, :uris
+      attr_accessor :requested_headers, :posted_json, :post_connect_hooks, :pre_connect_hooks, :user_agent, :uris
 
       def initialize
         @pre_connect_hooks = []
         @post_connect_hooks = []
+        @posted_json = []
+        @requested_headers = []
         @uris = []
       end
 
-      def get(uri)
+      def get(uri, parameters = [], referer = nil, request_headers = {})
         uris << uri
+        requested_headers << request_headers
       end
 
-      def post(uri)
+      def post(uri, query = nil, request_headers = {})
         uris << uri
+        posted_json << query
+        requested_headers << request_headers
       end
 
       def put(uri)
@@ -75,6 +80,27 @@ module CelluloidBenchmark
       visitor = Visitor.new(browser)
       visitor.post "/"
       visitor.put "/"
+    end
+
+    def test_get_json
+      browser = MockBrowser.new
+      visitor = Visitor.new(browser)
+      visitor.get_json "/offers.json"
+      assert_equal(
+        [ { "Accept"=>"application/json, text/javascript, */*; q=0.01" } ],
+        browser.requested_headers
+      )
+    end
+
+    def test_post_json
+      browser = MockBrowser.new
+      visitor = Visitor.new(browser)
+      visitor.post_json "/mobile-api/v2/signup.json", { email: "person@example.com" }
+      assert_equal(
+        [ { "Accept"=>"application/json, text/javascript, */*; q=0.01", "Content-Type" => "application/json" } ],
+        browser.requested_headers
+      )
+      assert_equal "{\"email\":\"person@example.com\"}", browser.posted_json.first
     end
 
     def test_browser_type
