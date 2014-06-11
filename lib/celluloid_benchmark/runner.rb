@@ -1,4 +1,5 @@
 require "celluloid"
+require_relative "session"
 require_relative "visitor_group"
 
 Celluloid.logger = nil
@@ -10,24 +11,25 @@ module CelluloidBenchmark
       raise("session_path is required") unless session_path
       raise("'#{session_path}' does not exist") unless File.exists?(session_path)
 
-      visitor_group = VisitorGroup.run!
+      require session_path
+
+      VisitorGroup.run!
       set_visitors_pool_size visitors
       benchmark_run = Celluloid::Actor[:benchmark_run]
 
       benchmark_run.mark_start
-      futures = run_sessions(session_path, benchmark_run, duration)
+      futures = run_sessions(benchmark_run, duration)
       futures.map(&:value)
       benchmark_run.mark_end
 
       benchmark_run
     end
 
-    def self.run_sessions(session_path, benchmark_run, duration)
-      session = File.read(session_path)
+    def self.run_sessions(benchmark_run, duration)
       visitors = Celluloid::Actor[:visitor_pool]
       futures = []
       (visitors.size - 2).times do
-        futures << visitors.future.run_session(session, benchmark_run, duration)
+        futures << visitors.future.run_session(benchmark_run, duration)
       end
       futures
     end

@@ -3,7 +3,8 @@
 require_relative "../lib/celluloid_benchmark"
 require "os"
 
-benchmark_run = CelluloidBenchmark::Runner.run ARGV[0], (ARGV[1] || 20).to_i, (ARGV[2] || OS.cpu_count * 1.5).to_i
+session_path = File.expand_path(ARGV[0])
+benchmark_run = CelluloidBenchmark::Runner.run session_path, (ARGV[1] || 20).to_i, (ARGV[2] || OS.cpu_count * 1.5).to_i
 
 p benchmark_run
 puts

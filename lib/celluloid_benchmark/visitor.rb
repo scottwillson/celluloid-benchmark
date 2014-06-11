@@ -25,14 +25,14 @@ module CelluloidBenchmark
       browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
     end
 
-    def run_session(session, benchmark_run, duration)
+    def run_session(benchmark_run, duration)
       @benchmark_run = benchmark_run
 
       elapsed_time = 0
       started_at = Time.now
       until elapsed_time >= duration
         begin
-          eval_session session
+          Session.run self
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
         end
@@ -72,11 +72,6 @@ module CelluloidBenchmark
         self.request_end_time = Time.now
         benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
       end
-    end
-
-    # Encapsulate in method so sessions can call return
-    def eval_session(session)
-      instance_eval session
     end
 
     def log_response_code_error(error)

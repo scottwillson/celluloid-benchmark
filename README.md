@@ -16,8 +16,10 @@ For your own tests, create a session file and pass its path to celluloid-benchma
 
 Simple scenario
 ---------------
-    benchmark :home_page, 1
-    get "https://github.com/scottwillson/celluloid-benchmark"
+    CelluloidBenchmark::Session.define do
+      benchmark :home_page, 1
+      get "https://github.com/scottwillson/celluloid-benchmark"
+    end
 
 `benchmark :label, duration` means "measure the following requests and group them under 'label'".
 Duration is optional and defaults to 0.3 seconds.
@@ -50,6 +52,18 @@ Simulate AJAX
       }
     end
 
+JSON requests (e.g., a mobile app API)
+--------------------------------------
+  get "/mobile-api/v2/offers.json", [], nil, {
+          "Accept" => "application/json, text/javascript, */*; q=0.01"
+        }
+
+  post(
+    "/mobile-api/v2/signup.json",
+    MultiJson.dump({ email: email }),
+    { "Content-Type" => "application/json" }
+  )
+
 Test data
 ---------
 Because test scenarios are plain Ruby, you can drive tests in many different ways. The
@@ -72,11 +86,26 @@ Celluloid Benchmark can also pull random test data from CSV files. For example:
 
 `random_data(:post_zone)` pulls a random line from tmp/data/post_zones.csv
 
+Extending session DSL
+---------------------
+The DSL is simple and will change in early releases. To add custom DSL methods, add methods to Visitor
+    module CelluloidBenchmark
+      class Visitor
+        def visit_from_homepage(target)
+          ...
+        end
+      end
+    end
+
 Celluloid Benchmark agents delegate calls to Mechanize. If you need something more complicated
 than the examples, check out the [Mechanize API](http://mechanize.rubyforge.org/HTTP/Agent.html) and call it directly with `browser.` in your test scenario.
 
 For a longer test, pass in a second duration argument (seconds):
     celluloid-benchmark my_test_session.rb 180
+
+Sessions are defined as Procs, which means that you can't call `return` in a session definition. If you do need to
+short-circuit a session (for example, to simulate an early visitor exit), encapsulate that part of the session in a
+method. You can call return from the method. See "Extending session DSL" above.
 
 Why
 ===
