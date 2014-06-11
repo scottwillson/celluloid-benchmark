@@ -61,8 +61,8 @@ module CelluloidBenchmark
       end
     end
 
-    def get_json(uri)
-      get uri, [], nil, { "Accept" => "application/json, text/javascript, */*; q=0.01" }
+    def get_json(uri, headers = {})
+      get uri, [], nil, headers.merge("Accept" => "application/json, text/javascript, */*; q=0.01")
     end
 
     def post_json(uri, query)
