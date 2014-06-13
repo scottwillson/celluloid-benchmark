@@ -22,13 +22,18 @@ module CelluloidBenchmark
     attr_accessor :request_end_time
 
     def initialize(browser = Mechanize.new)
-      mechanize_logger = ::Logger.new("log/mechanize.log")
-      mechanize_logger.level = ::Logger::INFO
-      browser.log = mechanize_logger
-
+      add_browser_logger browser
       @browser = browser
       add_browser_timing_hooks
       browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
+    end
+
+    def add_browser_logger(browser)
+      if browser.respond_to?(:log=)
+        mechanize_logger = ::Logger.new("log/mechanize.log")
+        mechanize_logger.level = ::Logger::INFO
+        browser.log = mechanize_logger
+      end
     end
 
     def run_session(benchmark_run, duration)
