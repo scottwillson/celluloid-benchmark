@@ -1,15 +1,15 @@
 GIT
   remote: https://github.com/celluloid/celluloid.git
-  revision: cdbc2458021f2caff1da1f084019e17e8ec8859c
+  revision: 64e46ee0ecbd848249d0476e8ac512b93bf18485
   specs:
     celluloid (0.16.0.pre)
-      timers (~> 2.0.0)
+      timers (~> 3.0.0.pre)
 
 GEM
   remote: https://rubygems.org/
   specs:
     daemons (1.1.9)
-    domain_name (0.5.18)
+    domain_name (0.5.19)
       unf (>= 0.0.5, < 1.0.0)
     eventmachine (1.0.3)
     eventmachine (1.0.3-java)
@@ -55,7 +55,7 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     timecop (0.7.1)
-    timers (2.0.0)
+    timers (3.0.0.pre)
       hitimes
     unf (0.1.4)
       unf_ext
