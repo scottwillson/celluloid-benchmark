@@ -17,7 +17,6 @@ group :test do
   gem "fakeweb", require: false
   gem "minitest", require: false
   gem "rack-contrib", require: false
-  gem "os", require: false
 
   # Thin requires Ruby standard libs that
   # Rubinius does not provide by default

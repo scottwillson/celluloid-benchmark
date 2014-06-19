@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/celluloid/celluloid.git
-  revision: 64e46ee0ecbd848249d0476e8ac512b93bf18485
+  revision: 8d810a14fce27206391b2a6807fd543ea71c9f44
   specs:
     celluloid (0.16.0.pre)
-      timers (~> 3.0.0.pre)
+      timers (~> 3.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -29,7 +29,7 @@ GEM
       webrobots (>= 0.0.9, < 0.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
-    minitest (5.3.4)
+    minitest (5.3.5)
     multi_json (1.10.1)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
@@ -37,7 +37,6 @@ GEM
       mini_portile (= 0.6.0)
     nokogiri (1.6.2.1-java)
     ntlm-http (0.1.1)
-    os (0.9.6)
     racc (1.4.11)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -55,7 +54,7 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     timecop (0.7.1)
-    timers (3.0.0.pre)
+    timers (3.0.0)
       hitimes
     unf (0.1.4)
       unf_ext
@@ -74,7 +73,6 @@ DEPENDENCIES
   mime-types (~> 1.25)
   minitest
   multi_json
-  os
   racc
   rack-contrib
   rake
