@@ -1,7 +1,6 @@
 #! /usr/bin/env ruby
 
 require_relative "../lib/celluloid_benchmark"
-require "os"
 
 session_path = File.expand_path(ARGV[0])
 
@@ -10,11 +9,11 @@ if duration == 0
   duration = 20
 end
 
-benchmark_run = CelluloidBenchmark::Runner.run session_path, duration, (ARGV[2] || OS.cpu_count * 1.5).to_i
+benchmark_run = CelluloidBenchmark::Runner.run session_path, duration, ARGV[2] && ARGV[2].to_i
 
 p benchmark_run
 puts
-p "#{benchmark_run.requests / benchmark_run.elapsed_time} requests per second. #{benchmark_run.requests} requests in #{benchmark_run.elapsed_time} seconds by #{CelluloidBenchmark::Visitor.pool.size} visitors."
+p "#{benchmark_run.requests / benchmark_run.elapsed_time} requests per second. #{benchmark_run.requests} requests in #{benchmark_run.elapsed_time} seconds by #{benchmark_run.visitors} visitors."
 
 puts
 benchmark_run.benchmarks.each do |trans|

@@ -24,5 +24,4 @@ forpec high concurrency. Use Mechanize for a realistic (albeit non-JavaScript) b
   spec.add_runtime_dependency "racc", "~> 1"
   spec.add_runtime_dependency "multi_json"
   spec.add_runtime_dependency "mime-types", "~> 1.25"
-  spec.add_runtime_dependency "os"
 end

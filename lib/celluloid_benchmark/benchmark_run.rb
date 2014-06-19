@@ -11,13 +11,14 @@ module CelluloidBenchmark
     attr_accessor :ended_at
     attr_accessor :logger
     attr_accessor :started_at
+    attr_accessor :visitors
     attr_reader :thresholds
 
     def initialize
       if !Dir.exists?("log")
         FileUtils.mkdir "log"
       end
-      
+
       # Could replace with Celluloid.logger
       @logger = ::Logger.new("log/benchmark.log")
       @thresholds = Hash.new
@@ -27,11 +28,11 @@ module CelluloidBenchmark
       time = end_time - start_time
       response_times[label] << time
       response_codes[label] << http_status_code.to_i
-      
+
       if threshold
         thresholds[label] = threshold
       end
-      
+
       logger.info "#{http_status_code} #{time} #{label}"
     end
 
@@ -42,25 +43,25 @@ module CelluloidBenchmark
     def response_codes
       @response_codes ||= Hash.new { |hash, value| hash[value] = [] }
     end
-  
+
     def requests
       response_times.values.compact.map(&:size).reduce(0, &:+)
     end
-    
+
     def benchmarks
       response_times.map do |label, response_times|
         CelluloidBenchmark::Benchmark.new label, thresholds[label], response_times, response_codes[label]
       end
     end
-    
+
     def mark_start
       @started_at = Time.now
     end
-    
+
     def mark_end
       @ended_at = Time.now
     end
-    
+
     def elapsed_time
       if started_at && ended_at
         (ended_at - started_at).to_f
@@ -68,7 +69,7 @@ module CelluloidBenchmark
         0
       end
     end
-  
+
     def ok?
       benchmarks.all?(&:ok?)
     end
