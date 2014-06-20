@@ -41,7 +41,9 @@ module CelluloidBenchmark
 
     def test_run_session
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
+
       require(File.dirname(__FILE__) + "/../files/runner_test_session.rb")
 
       benchmark_run = BenchmarkRun.new
@@ -54,7 +56,8 @@ module CelluloidBenchmark
 
     def test_benchmark
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
 
       visitor.benchmark("purchase_page", 0.25)
 
@@ -64,7 +67,8 @@ module CelluloidBenchmark
 
     def test_random_data
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
 
       data_sources = Minitest::Mock.new
       data_source = Minitest::Mock.new
@@ -79,14 +83,18 @@ module CelluloidBenchmark
 
     def test_delegate_put_and_post
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
+
       visitor.post "/"
       visitor.put "/"
     end
 
     def test_get_json
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
+
       visitor.get_json "/offers.json"
       assert_equal(
         [ { "Accept"=>"application/json, text/javascript, */*; q=0.01" } ],
@@ -96,7 +104,8 @@ module CelluloidBenchmark
 
     def test_post_json
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
       visitor.post_json "/mobile-api/v2/signup.json", { email: "person@example.com" }
       assert_equal(
         [ { "Accept"=>"application/json, text/javascript, */*; q=0.01", "Content-Type" => "application/json" } ],
@@ -107,7 +116,8 @@ module CelluloidBenchmark
 
     def test_browser_type
       browser = MockBrowser.new
-      visitor = Visitor.new(browser)
+      visitor = Visitor.new
+      visitor.browser = browser
       visitor.browser_type :mobile
     end
   end

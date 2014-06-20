@@ -15,26 +15,11 @@ module CelluloidBenchmark
     def_delegators :@browser, :add_auth, :get, :post, :put, :submit, :transact
 
     attr_reader :benchmark_run
-    attr_reader :browser
+    attr_accessor :browser
     attr_accessor :current_request_label
     attr_accessor :current_request_threshold
     attr_accessor :request_start_time
     attr_accessor :request_end_time
-
-    def initialize(browser = Mechanize.new)
-      add_browser_logger browser
-      @browser = browser
-      add_browser_timing_hooks
-      browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
-    end
-
-    def add_browser_logger(browser)
-      if browser.respond_to?(:log=)
-        mechanize_logger = ::Logger.new("log/mechanize.log")
-        mechanize_logger.level = ::Logger::INFO
-        browser.log = mechanize_logger
-      end
-    end
 
     def run_session(benchmark_run, duration)
       @benchmark_run = benchmark_run
@@ -43,6 +28,7 @@ module CelluloidBenchmark
       started_at = benchmark_run.started_at
       until elapsed_time >= duration
         begin
+          add_new_browser
           Session.run self
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
@@ -51,6 +37,22 @@ module CelluloidBenchmark
         elapsed_time = Time.now - started_at
       end
       elapsed_time
+    end
+
+    def add_new_browser
+      @browser = Mechanize.new
+      add_browser_timing_hooks
+      @browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
+      @browser.log = mechanize_logger
+      @browser
+    end
+
+    def mechanize_logger
+      @mechanize_logger ||= (
+        logger = ::Logger.new("log/mechanize.log")
+        logger.level = ::Logger::INFO
+        logger
+      )
     end
 
     def benchmark(label, threshold = 0.5)
