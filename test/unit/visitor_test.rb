@@ -44,7 +44,9 @@ module CelluloidBenchmark
       visitor = Visitor.new(browser)
       require(File.dirname(__FILE__) + "/../files/runner_test_session.rb")
 
-      elapsed_time = visitor.run_session(nil, 0.01)
+      benchmark_run = BenchmarkRun.new
+      benchmark_run.mark_start
+      elapsed_time = visitor.run_session(benchmark_run, 0.01)
 
       assert !elapsed_time.nil?, "elapsed_time should not be nil"
       assert elapsed_time > 0, "elapsed_time should be greater than zero, but was #{elapsed_time}"

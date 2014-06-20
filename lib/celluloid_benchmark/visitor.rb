@@ -40,7 +40,7 @@ module CelluloidBenchmark
       @benchmark_run = benchmark_run
 
       elapsed_time = 0
-      started_at = Time.now
+      started_at = benchmark_run.started_at
       until elapsed_time >= duration
         begin
           Session.run self
