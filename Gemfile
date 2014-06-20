@@ -8,7 +8,7 @@ gem "mime-types", "~> 1.25", require: false
 gem "multi_json", require: false
 gem "rake", require: false
 
-group :rbx do
+platform :rbx do
   # MRI includes by default, but Rubinius does not
   gem "racc"
 end
@@ -20,11 +20,11 @@ group :test do
 
   # Thin requires Ruby standard libs that
   # Rubinius does not provide by default
-  gem "rubysl-logger"
-  gem "rubysl-optparse"
-  gem "rubysl-open3"
-  gem "rubysl-singleton"
-  gem "rubysl-mutex_m"
-  gem "thin", require: false
+  gem "rubysl-logger", platform: :rbx
+  gem "rubysl-optparse", platform: :rbx
+  gem "rubysl-open3", platform: :rbx
+  gem "rubysl-singleton", platform: :rbx
+  gem "rubysl-mutex_m", platform: :rbx
+  gem "thin", require: false, platform: :rbx
   gem "timecop", require: false
 end
