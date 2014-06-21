@@ -14,9 +14,8 @@ module CelluloidBenchmark
       require session_path
 
       VisitorGroup.run!
-      set_visitor_pool_size visitors
-      visitors = visitors_count(visitors)
 
+      visitors = visitors_count(visitors)
       benchmark_run = Celluloid::Actor[:benchmark_run]
       benchmark_run.visitors = visitors
 
@@ -35,12 +34,6 @@ module CelluloidBenchmark
         futures << pool.future.run_session(benchmark_run, duration)
       end
       futures
-    end
-
-    def self.set_visitor_pool_size(size)
-      if size && size.to_i > 0
-        Visitor.pool.size = size.to_i + 2
-      end
     end
 
     def self.visitors_count(count)

@@ -30,6 +30,7 @@ module CelluloidBenchmark
         begin
           add_new_browser
           Session.run self
+
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
         end

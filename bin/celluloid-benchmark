@@ -1,6 +1,7 @@
 #! /usr/bin/env ruby
 
 require_relative "../lib/celluloid_benchmark"
+require_relative "../lib/celluloid_benchmark/visitor"
 
 session_path = File.expand_path(ARGV[0])
 

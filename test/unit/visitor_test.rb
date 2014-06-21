@@ -40,6 +40,8 @@ module CelluloidBenchmark
     end
 
     def test_run_session
+      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
+
       browser = MockBrowser.new
       visitor = Visitor.new
       visitor.browser = browser
