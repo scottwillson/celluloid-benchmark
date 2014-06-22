@@ -38,7 +38,12 @@ module CelluloidBenchmark
     end
 
     def self.visitors_count(count)
-      count = count || (Visitor.pool.size - 2)
+      if count
+        count = count.to_i
+      else
+        count = Visitor.pool.size - 2
+      end
+
       if count > 1
         count
       else
