@@ -24,7 +24,7 @@ module CelluloidBenchmark
 
     def test_run_with_visitors_arg
       FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
-      benchmark_run = Runner.run(File.dirname(__FILE__) + "/../files/runner_test_session.rb", 0.1, 12)
+      benchmark_run = Runner.run(File.dirname(__FILE__) + "/../files/runner_test_session.rb", 0.1, "12")
 
       benchmarks = benchmark_run.benchmarks
       assert_equal 1, benchmarks.size

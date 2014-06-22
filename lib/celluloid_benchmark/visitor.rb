@@ -20,9 +20,11 @@ module CelluloidBenchmark
     attr_accessor :current_request_threshold
     attr_accessor :request_start_time
     attr_accessor :request_end_time
+    attr_reader :target
 
-    def run_session(benchmark_run, duration)
+    def run_session(benchmark_run, duration, target = nil)
       @benchmark_run = benchmark_run
+      @target = target
 
       elapsed_time = 0
       started_at = benchmark_run.started_at
@@ -30,7 +32,6 @@ module CelluloidBenchmark
         begin
           add_new_browser
           Session.run self
-
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
         end

@@ -1,0 +1,7 @@
+local:
+  uri: http://0.0.0.0:8080
+dev:
+  uri: https://devel.digitaloffersengineering.com
+  http_auth:
+    username: "ocean"
+    password: "keepcalm"
