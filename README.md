@@ -8,7 +8,7 @@ Getting Started
     gem install celluloid-benchmark
     echo "benchmark :home_page, 1
     get 'https://github.com/scottwillson/celluloid-benchmark'" > session.rb
-    celluloid-benchmark session.rb 1
+    celluloid-benchmark -d 1
 
 Congrats! You just load-tested the project's Github page.
 
@@ -64,8 +64,12 @@ JSON requests (e.g., a mobile app API)
     { "Content-Type" => "application/json" }
   )
 
+Options
+-------
+    celluloid-benchmark --help
+
 Test data
----------
+=========
 Because test scenarios are plain Ruby, you can drive tests in many different ways. The
 [Faker gem](http://rubydoc.info/github/stympy/faker/master/frames) is handy
 for random, realistic test data:
@@ -87,7 +91,7 @@ Celluloid Benchmark can also pull random test data from CSV files. For example:
 `random_data(:post_zone)` pulls a random line from tmp/data/post_zones.csv
 
 Extending session DSL
----------------------
+=====================
 The DSL is simple and will change in early releases. To add custom DSL methods, add methods to Visitor
     module CelluloidBenchmark
       class Visitor
