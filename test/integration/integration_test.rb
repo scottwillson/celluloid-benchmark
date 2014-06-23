@@ -7,32 +7,32 @@ module CelluloidBenchmark
     def setup
       # minitest and Celluloid both use at_exit
       Celluloid.boot
-      
+
       start_target_webserver
     end
-    
+
     def teardown
       stop_target_webserver
     end
 
     def test_happy_path
       assert target_webserver_responsive?, "Test web server did not respond OK"
-      
+
       session_path = File.expand_path(File.dirname(__FILE__) + "/test_session.rb")
       duration = 5
-      benchmark_run = CelluloidBenchmark::Runner.run(session_path, duration)
+      benchmark_run = CelluloidBenchmark::Runner.run(session: session_path, duration: duration)
 
       assert benchmark_run.ok?, "Run should be OK"
     end
-    
+
     def start_target_webserver
       `thin --threaded --rackup test/integration/config.ru --daemonize --port 8000 start`
     end
-    
+
     def stop_target_webserver
       `thin stop`
     end
-    
+
     def target_webserver_responsive?
       require "net/http"
       require "uri"

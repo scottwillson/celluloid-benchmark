@@ -8,10 +8,13 @@ Celluloid.logger = nil
 module CelluloidBenchmark
   # Run a scenario in several Visitors and return a BenchmarkRun
   class Runner
-    def self.run(session_path = nil, duration = nil, visitors = nil, target = nil)
-      session_path ||= "session.rb"
-      session_path = File.expand_path(session_path)
-      require session_path
+    def self.run(args)
+      session  =  args[:session]  || "session.rb"
+      visitors =  args[:visitors] || visitors_count(args[:visitors])
+      duration = (args[:duration] || 20).to_f
+      target   =  args[:target]
+
+      require File.expand_path(session)
 
       VisitorGroup.run!
 
@@ -20,7 +23,7 @@ module CelluloidBenchmark
       benchmark_run.visitors = visitors
 
       benchmark_run.mark_start
-      futures = run_sessions(benchmark_run, duration || 20, visitors, Target.new_from_key(target))
+      futures = run_sessions(benchmark_run, duration, visitors, Target.new_from_key(target))
       futures.map(&:value)
 
       benchmark_run.mark_end
