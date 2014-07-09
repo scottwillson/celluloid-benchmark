@@ -25,7 +25,11 @@ module CelluloidBenchmark
     end
 
     def log(http_status_code, start_time, end_time, label, threshold)
-      time = end_time - start_time
+      time = 0
+      if start_time && end_time
+        time = end_time - start_time
+      end
+
       response_times[label] << time
       response_codes[label] << http_status_code.to_i
 

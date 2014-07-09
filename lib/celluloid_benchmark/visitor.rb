@@ -34,6 +34,10 @@ module CelluloidBenchmark
           Session.run self
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
+        rescue Errno::ETIMEDOUT => e
+          log_network_error e
+        rescue Net::ReadTimeout => e
+          log_network_error e
         end
 
         elapsed_time = Time.now - started_at
@@ -105,6 +109,17 @@ module CelluloidBenchmark
       self.request_end_time = Time.now
       benchmark_run.async.log(
         error.response_code,
+        request_start_time,
+        request_end_time,
+        current_request_label,
+        current_request_threshold
+      )
+    end
+
+    def log_network_error(error)
+      self.request_end_time = Time.now
+      benchmark_run.async.log(
+        500,
         request_start_time,
         request_end_time,
         current_request_label,

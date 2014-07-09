@@ -1,7 +1,12 @@
 require "minitest"
 require "minitest/autorun"
 require "celluloid"
+require_relative "../../lib/celluloid_benchmark/benchmark_run"
+require_relative "../../lib/celluloid_benchmark/session"
 require_relative "../../lib/celluloid_benchmark/visitor"
+require "fakeweb"
+
+FakeWeb.allow_net_connect = false
 
 module CelluloidBenchmark
   # Visitor#run_session is the central purpose of this gem, but best tested in an integration test,
@@ -46,7 +51,7 @@ module CelluloidBenchmark
       visitor = Visitor.new
       visitor.browser = browser
 
-      require(File.dirname(__FILE__) + "/../files/runner_test_session.rb")
+      require_relative "../files/runner_test_session.rb"
 
       benchmark_run = BenchmarkRun.new
       benchmark_run.mark_start
@@ -121,6 +126,40 @@ module CelluloidBenchmark
       visitor = Visitor.new
       visitor.browser = browser
       visitor.browser_type :mobile
+    end
+
+    def test_log_error_pages
+      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
+
+      browser = MockBrowser.new
+      visitor = Visitor.new
+      visitor.browser = browser
+
+      require_relative "../files/session_with_error.rb"
+
+      benchmark_run = BenchmarkRun.new
+      benchmark_run.mark_start
+      elapsed_time = visitor.run_session(benchmark_run, 0.01)
+
+      assert !elapsed_time.nil?, "elapsed_time should not be nil"
+      assert elapsed_time > 0, "elapsed_time should be greater than zero, but was #{elapsed_time}"
+    end
+
+    def test_log_network_error
+      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
+
+      browser = MockBrowser.new
+      visitor = Visitor.new
+      visitor.browser = browser
+
+      require_relative "../files/session_with_network_error.rb"
+
+      benchmark_run = BenchmarkRun.new
+      benchmark_run.mark_start
+      elapsed_time = visitor.run_session(benchmark_run, 0.01)
+
+      assert !elapsed_time.nil?, "elapsed_time should not be nil"
+      assert elapsed_time > 0, "elapsed_time should be greater than zero, but was #{elapsed_time}"
     end
   end
 end
