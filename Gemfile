@@ -2,9 +2,9 @@ source "https://rubygems.org"
 
 # Duplication with gemspec but I like to explicitly require gems
 
-gem "celluloid", "~> 0.16.0.pre", git: "https://github.com/celluloid/celluloid.git", require: false, ref: "62823ccd18f261a0c9bbe6799362380cb1c77883"
-gem "mechanize", "~> 2.7", require: false
-gem "mime-types", "~> 1.25", require: false
+gem "celluloid", require: false
+gem "mechanize", require: false
+gem "mime-types", require: false
 gem "multi_json", require: false
 gem "rake", require: false
 gem "slop", require: false

@@ -1,43 +1,37 @@
-GIT
-  remote: https://github.com/celluloid/celluloid.git
-  revision: 62823ccd18f261a0c9bbe6799362380cb1c77883
-  ref: 62823ccd18f261a0c9bbe6799362380cb1c77883
-  specs:
-    celluloid (0.16.0.pre)
-      timers (~> 2.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     daemons (1.1.9)
-    domain_name (0.5.19)
+    domain_name (0.5.21)
       unf (>= 0.0.5, < 1.0.0)
     eventmachine (1.0.3)
     fakeweb (1.3.0)
-    hitimes (1.2.1)
-    hitimes (1.2.1-java)
+    hitimes (1.2.2)
+    hitimes (1.2.2-java)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    mechanize (2.7.2)
+    mechanize (2.7.3)
       domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0.0)
-      mime-types (~> 1.17, >= 1.17.2)
+      http-cookie (~> 1.0)
+      mime-types (~> 2.0)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
       net-http-persistent (~> 2.5, >= 2.5.2)
       nokogiri (~> 1.4)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
-    mime-types (1.25.1)
+    mime-types (2.4.3)
     mini_portile (0.6.0)
-    minitest (5.3.5)
+    minitest (5.4.2)
     multi_json (1.10.1)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
-    nokogiri (1.6.2.1)
+    nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
-    nokogiri (1.6.2.1-java)
+    nokogiri (1.6.3.1-java)
     ntlm-http (0.1.1)
-    racc (1.4.11)
+    racc (1.4.12)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -49,13 +43,13 @@ GEM
       rubysl-shellwords (~> 2.0)
     rubysl-shellwords (2.0.0)
     rubysl-singleton (2.0.0)
-    slop (3.5.0)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
+    slop (3.6.0)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     timecop (0.7.1)
-    timers (2.0.0)
+    timers (4.0.1)
       hitimes
     unf (0.1.4)
       unf_ext
@@ -68,10 +62,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  celluloid (~> 0.16.0.pre)!
+  celluloid
   fakeweb
-  mechanize (~> 2.7)
-  mime-types (~> 1.25)
+  mechanize
+  mime-types
   minitest
   multi_json
   racc
