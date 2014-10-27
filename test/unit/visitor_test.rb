@@ -13,12 +13,13 @@ module CelluloidBenchmark
   # not a unit test
   class VisitorTest < Minitest::Test
     class MockBrowser
-      attr_accessor :requested_headers, :posted_json, :post_connect_hooks, :pre_connect_hooks, :user_agent, :uris
+      attr_accessor :requested_headers, :posted_json, :post_connect_hooks, :pre_connect_hooks, :putted_json, :user_agent, :uris
 
       def initialize
         @pre_connect_hooks = []
         @post_connect_hooks = []
         @posted_json = []
+        @putted_json = []
         @requested_headers = []
         @uris = []
       end
@@ -34,8 +35,10 @@ module CelluloidBenchmark
         requested_headers << request_headers
       end
 
-      def put(uri)
+      def put(uri, query = nil, request_headers = {})
         uris << uri
+        putted_json << query
+        requested_headers << request_headers
       end
     end
 
@@ -119,6 +122,30 @@ module CelluloidBenchmark
         browser.requested_headers
       )
       assert_equal "{\"email\":\"person@example.com\"}", browser.posted_json.first
+    end
+
+    def test_post_json_with_headers
+      browser = MockBrowser.new
+      visitor = Visitor.new
+      visitor.browser = browser
+      visitor.post_json "/mobile-api/v2/signup.json", { email: "person@example.com" }, { "X-CSRF-Token" => "327yg" }
+      assert_equal(
+        [ { "Accept"=>"application/json, text/javascript, */*; q=0.01", "Content-Type" => "application/json", "X-CSRF-Token" => "327yg" } ],
+        browser.requested_headers
+      )
+      assert_equal "{\"email\":\"person@example.com\"}", browser.posted_json.first
+    end
+
+    def test_put_json
+      browser = MockBrowser.new
+      visitor = Visitor.new
+      visitor.browser = browser
+      visitor.put_json "/offers.json", { price: "30.00" }
+      assert_equal(
+        [ { "Accept"=>"application/json, text/javascript, */*; q=0.01", "Content-Type" => "application/json" } ],
+        browser.requested_headers
+      )
+      assert_equal "{\"price\":\"30.00\"}", browser.putted_json.first
     end
 
     def test_browser_type
