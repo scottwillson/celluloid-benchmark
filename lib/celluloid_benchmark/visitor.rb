@@ -34,9 +34,7 @@ module CelluloidBenchmark
           Session.run self
         rescue Mechanize::ResponseCodeError => e
           log_response_code_error e
-        rescue Errno::ETIMEDOUT => e
-          log_network_error e
-        rescue Net::ReadTimeout => e
+        rescue Errno::ETIMEDOUT, Net::ReadTimeout, Timeout::Error => e
           log_network_error e
         end
 
