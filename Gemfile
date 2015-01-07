@@ -7,7 +7,7 @@ gem "mechanize", require: false
 gem "mime-types", require: false
 gem "multi_json", require: false
 gem "rake", require: false
-gem "slop", require: false
+gem "slop", "~> 3", require: false
 
 platform :rbx do
   # MRI includes by default, but Rubinius does not
@@ -26,6 +26,7 @@ group :test do
   gem "rubysl-open3", platform: :rbx
   gem "rubysl-singleton", platform: :rbx
   gem "rubysl-mutex_m", platform: :rbx
-  gem "thin", require: false, platform: :rbx
+
+  gem "thin", require: false
   gem "timecop", require: false
 end

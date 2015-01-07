@@ -76,6 +76,6 @@ DEPENDENCIES
   rubysl-open3
   rubysl-optparse
   rubysl-singleton
-  slop
+  slop (~> 3)
   thin
   timecop
