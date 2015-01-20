@@ -1,4 +1,4 @@
 script: bundle exec rake
 
 rvm:
-  - "rbx-2"
+  - "ruby-2.1"
