@@ -6,12 +6,12 @@ module CelluloidBenchmark
     attr_reader :uri
 
     def self.new_from_key(key, config_file_path = nil)
-      if key.nil? && config_file_path.nil?
-        return default_target
-      end
-
       key ||= "local"
       config_file_path ||= "config/targets.yml"
+
+      if key == "local" && !File.exists?(config_file_path)
+        return default_target
+      end
 
       configs = YAML.load_file(config_file_path)
       config = configs[key]
