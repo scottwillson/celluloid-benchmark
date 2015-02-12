@@ -1,7 +1,7 @@
 module CelluloidBenchmark
   # List of responses for a benchmark defined in test scenario.
   #
-  # For example, requests for /offers/1001, /offers/1001-burgerville-deal, /offers/2200 
+  # For example, requests for /offers/1001, /offers/1001-burgerville-deal, /offers/2200
   # might all be grouped under the "offer_show" label
   #
   # Call #ok? to check that responses were OK and fast enough.
@@ -21,7 +21,7 @@ module CelluloidBenchmark
 
       raise(ArgumentError, "threshold must be greater than zero") if self.threshold <= 0
     end
-    
+
     def ok?
       response_times_ok? && response_codes_ok?
     end
@@ -37,12 +37,12 @@ module CelluloidBenchmark
 
     # 200 OK is ... OK, as is a redirect, not modified, or auth required
     def response_codes_ok?
-      response_codes.all? { |code| code == 200 || code == 302 || code == 304 || code == 401 }
+      response_codes.all? { |code| code == 200 || code == 201 || code == 302 || code == 304 || code == 401 }
     end
-    
-    
+
+
     private
-    
+
     def average_response_time
       response_times.reduce(:+) / response_times.size
     end
