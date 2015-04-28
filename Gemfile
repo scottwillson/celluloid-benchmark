@@ -7,7 +7,7 @@ gem "mechanize", require: false
 gem "mime-types", require: false
 gem "multi_json", require: false
 gem "rake", require: false
-gem "slop", "~> 3", require: false
+gem "slop", "~> 4", require: false
 
 platform :rbx do
   # MRI includes by default, but Rubinius does not

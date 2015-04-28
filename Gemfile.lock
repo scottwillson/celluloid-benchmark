@@ -7,6 +7,7 @@ GEM
     domain_name (0.5.21)
       unf (>= 0.0.5, < 1.0.0)
     eventmachine (1.0.3)
+    eventmachine (1.0.3-java)
     fakeweb (1.3.0)
     hitimes (1.2.2)
     hitimes (1.2.2-java)
@@ -43,7 +44,7 @@ GEM
       rubysl-shellwords (~> 2.0)
     rubysl-shellwords (2.0.0)
     rubysl-singleton (2.0.0)
-    slop (3.6.0)
+    slop (4.1.0)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -76,6 +77,6 @@ DEPENDENCIES
   rubysl-open3
   rubysl-optparse
   rubysl-singleton
-  slop (~> 3)
+  slop (~> 4)
   thin
   timecop
