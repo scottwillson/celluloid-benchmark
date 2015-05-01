@@ -97,7 +97,7 @@ module CelluloidBenchmark
       visitor.browser = browser
 
       visitor.post "/"
-      visitor.put "/"
+      visitor.put "/", ""
     end
 
     def test_get_json

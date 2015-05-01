@@ -2,6 +2,7 @@ require "mechanize"
 require "multi_json"
 require "logger"
 require_relative "data_sources"
+require_relative "visitors/http_methods"
 
 module CelluloidBenchmark
   # Actor that models a person using a web browser. Runs a test scenario. Delegates web browsing to
@@ -9,10 +10,11 @@ module CelluloidBenchmark
   class Visitor
     include Celluloid
     include CelluloidBenchmark::DataSources
+    include CelluloidBenchmark::Visitors::HTTPMethods
 
     extend Forwardable
 
-    def_delegators :@browser, :add_auth, :get, :post, :put, :submit, :transact
+    def_delegators :@browser, :add_auth, :submit, :transact
 
     attr_reader :benchmark_run
     attr_accessor :browser
@@ -77,6 +79,25 @@ module CelluloidBenchmark
       end
     end
 
+    def get(uri, parameters = [], referer = nil, headers = {})
+      page = browser.get(uri, parameters, referer, headers)
+      log_response page
+      page
+    end
+
+    def post(uri, query = {}, headers = {})
+      page = browser.post(uri, query, headers)
+      log_response page
+      page
+    end
+
+    def put(uri, entity, headers = {})
+      page = browser.put(uri, entity, headers)
+      log_response page
+      page
+    end
+
+
     def get_json(uri, headers = {})
       get uri, [], nil, headers.merge("Accept" => "application/json, text/javascript, */*; q=0.01")
     end
@@ -107,12 +128,31 @@ module CelluloidBenchmark
 
       browser.post_connect_hooks << proc do |agent, uri, response, body|
         self.request_end_time = Time.now
-        benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
+      end
+    end
+
+    def server_response_time(page)
+      if page && page["x-runtime"]
+        page["x-runtime"].to_f
+      end
+    end
+
+    def log_response(page)
+      if benchmark_run
+        benchmark_run.async.log(
+          page.code,
+          request_start_time,
+          request_end_time,
+          server_response_time(page),
+          current_request_label,
+          current_request_threshold
+        )
       end
     end
 
     def log_response_code_error(error)
       self.request_end_time = Time.now
+
       benchmark_run.async.log(
         error.response_code,
         request_start_time,
@@ -124,6 +164,7 @@ module CelluloidBenchmark
 
     def log_network_error(error)
       self.request_end_time = Time.now
+
       benchmark_run.async.log(
         500,
         request_start_time,

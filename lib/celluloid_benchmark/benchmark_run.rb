@@ -24,9 +24,12 @@ module CelluloidBenchmark
       @thresholds = Hash.new
     end
 
-    def log(http_status_code, start_time, end_time, label, threshold)
+    def log(http_status_code, start_time, end_time, server_response_time, label, threshold)
       time = 0
-      if start_time && end_time
+
+      if server_response_time
+        time = server_response_time
+      elsif start_time && end_time
         time = end_time - start_time
       end
 
