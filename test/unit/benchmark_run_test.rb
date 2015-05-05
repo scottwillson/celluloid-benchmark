@@ -21,7 +21,7 @@ module CelluloidBenchmark
     def test_log
       benchmark_run = BenchmarkRun.new
       logger = Minitest::Mock.new
-      logger.expect :info, true, [ "200 4 search"]
+      logger.expect :info, true, [ "200 1 search"]
       benchmark_run.logger = logger
       benchmark_run.log 200, 1, 2, 4, "search", 3
     end
@@ -126,6 +126,15 @@ module CelluloidBenchmark
       benchmark_run.stub :benchmarks, [ Minitest::Mock.new.expect(:ok?, false), Minitest::Mock.new.expect(:ok?, false) ] do
         assert !benchmark_run.ok?
       end
+    end
+
+    def test_network_time
+      benchmark_run = BenchmarkRun.new
+      assert_equal Hash.new, benchmark_run.network_times
+
+      benchmark_run.log 200, 3, 4, 0.1, "search", 0
+      assert_equal({ "search" => [ 0.9 ] }, benchmark_run.network_times)
+      assert_equal 0.9, benchmark_run.network_time
     end
   end
 end

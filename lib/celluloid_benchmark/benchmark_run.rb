@@ -25,21 +25,23 @@ module CelluloidBenchmark
     end
 
     def log(http_status_code, start_time, end_time, server_response_time, label, threshold)
-      time = 0
-      if server_response_time
-        time = server_response_time
-      elsif start_time && end_time
-        time = end_time - start_time
-      end
-
-      response_times[label] << time
       response_codes[label] << http_status_code.to_i
+
+      network_and_server_time = network_and_server_time(start_time, end_time)
+
+      if server_response_time
+        response_times[label] << server_response_time
+        network_times[label] << network_and_server_time - server_response_time
+      else
+        response_times[label] << network_and_server_time
+        network_times[label] << network_and_server_time
+      end
 
       if threshold
         thresholds[label] = threshold
       end
 
-      logger.info "#{http_status_code} #{time} #{label}"
+      logger.info "#{http_status_code} #{network_and_server_time} #{label}"
     end
 
     def response_times
@@ -52,6 +54,15 @@ module CelluloidBenchmark
 
     def requests
       response_times.values.compact.map(&:size).reduce(0, &:+)
+    end
+
+    def network_times
+      @network_times ||= Hash.new { |hash, value| hash[value] = [] }
+    end
+
+    def network_time
+      requests = network_times.values.flatten
+      requests.reduce(:+) / requests.size
     end
 
     def benchmarks
@@ -83,6 +94,17 @@ module CelluloidBenchmark
     def inspect
       response_times.map do |label, response_times|
         "#{label} #{response_times.reduce(:+) / response_times.size} #{response_times.min} #{response_times.max} #{response_times.size}"
+      end
+    end
+
+
+    private
+
+    def network_and_server_time(start_time, end_time)
+      if start_time && end_time
+        end_time - start_time
+      else
+        0
       end
     end
   end
