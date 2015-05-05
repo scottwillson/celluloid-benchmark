@@ -2,6 +2,7 @@ require "mechanize"
 require "multi_json"
 require "logger"
 require_relative "data_sources"
+require_relative "visitors/http_methods"
 
 module CelluloidBenchmark
   # Actor that models a person using a web browser. Runs a test scenario. Delegates web browsing to
@@ -9,6 +10,7 @@ module CelluloidBenchmark
   class Visitor
     include Celluloid
     include CelluloidBenchmark::DataSources
+    include CelluloidBenchmark::Visitors::HTTPMethods
 
     extend Forwardable
 
@@ -75,26 +77,6 @@ module CelluloidBenchmark
       else
         browser.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"
       end
-    end
-
-    def get_json(uri, headers = {})
-      get uri, [], nil, headers.merge("Accept" => "application/json, text/javascript, */*; q=0.01")
-    end
-
-    def post_json(uri, query, headers = {})
-      post(
-        uri,
-        MultiJson.dump(query),
-        { "Content-Type" => "application/json", "Accept" => "application/json, text/javascript, */*; q=0.01" }.merge(headers)
-      )
-    end
-
-    def put_json(uri, query, headers = {})
-      put(
-        uri,
-        MultiJson.dump(query),
-        { "Content-Type" => "application/json", "Accept" => "application/json, text/javascript, */*; q=0.01" }.merge(headers)
-      )
     end
 
 
