@@ -35,6 +35,7 @@ module CelluloidBenchmark
 
       response_times[label] << time
       response_codes[label] << http_status_code.to_i
+      network_times[label] << ((end_time - start_time) - time)
 
       if threshold
         thresholds[label] = threshold
@@ -53,6 +54,15 @@ module CelluloidBenchmark
 
     def requests
       response_times.values.compact.map(&:size).reduce(0, &:+)
+    end
+
+    def network_times
+      @network_times ||= Hash.new { |hash, value| hash[value] = [] }
+    end
+
+    def network_time
+      requests = network_times.values.flatten
+      requests.reduce(:+) / requests.size
     end
 
     def benchmarks
@@ -83,7 +93,7 @@ module CelluloidBenchmark
 
     def inspect
       response_times.map do |label, response_times|
-        "#{label} #{response_times.reduce(:+) / response_times.size} #{response_times.min} #{response_times.max} #{response_times.size}"
+        "#{label} #{response_times.reduce(:+) / response_times.size} #{response_times.min} #{response_times.max} #{response_times.size}\n"
       end
     end
   end

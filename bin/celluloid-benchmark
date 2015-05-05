@@ -22,8 +22,9 @@ benchmark_run.benchmarks.each do |trans|
 end
 
 puts
-p "#{benchmark_run.requests / benchmark_run.elapsed_time} requests per second. #{benchmark_run.requests} requests in #{benchmark_run.elapsed_time} seconds by #{benchmark_run.visitors} visitors."
+p "#{benchmark_run.requests / benchmark_run.elapsed_time} requests per second. #{benchmark_run.requests} requests in #{benchmark_run.elapsed_time} seconds by #{benchmark_run.visitors} visitors. Network time: #{benchmark_run.network_time}"
 
+puts
 p benchmark_run
 
 exit benchmark_run.ok?

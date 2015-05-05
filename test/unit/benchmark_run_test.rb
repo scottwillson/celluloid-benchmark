@@ -127,5 +127,14 @@ module CelluloidBenchmark
         assert !benchmark_run.ok?
       end
     end
+
+    def test_network_time
+      benchmark_run = BenchmarkRun.new
+      assert_equal Hash.new, benchmark_run.network_times
+
+      benchmark_run.log 200, 3, 4, 0.1, "search", 0
+      assert_equal({ "search" => [ 0.9 ] }, benchmark_run.network_times)
+      assert_equal 0.9, benchmark_run.network_time
+    end
   end
 end
