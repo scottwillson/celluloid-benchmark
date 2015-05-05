@@ -89,7 +89,12 @@ module CelluloidBenchmark
 
       browser.post_connect_hooks << proc do |agent, uri, response, body|
         self.request_end_time = Time.now
-        benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
+      end
+    end
+
+    def server_response_time(page)
+      if page && page["x-runtime"]
+        page["x-runtime"].to_f
       end
     end
 
@@ -99,6 +104,7 @@ module CelluloidBenchmark
           page.code,
           request_start_time,
           request_end_time,
+          server_response_time(page),
           current_request_label,
           current_request_threshold
         )
