@@ -93,7 +93,7 @@ module CelluloidBenchmark
 
     def inspect
       response_times.map do |label, response_times|
-        "#{label} #{response_times.reduce(:+) / response_times.size} #{response_times.min} #{response_times.max} #{response_times.size}\n"
+        "#{label} #{response_times.reduce(:+) / response_times.size} #{response_times.min} #{response_times.max} #{response_times.size}"
       end
     end
   end
