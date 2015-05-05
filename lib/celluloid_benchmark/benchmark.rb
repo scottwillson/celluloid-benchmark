@@ -40,9 +40,6 @@ module CelluloidBenchmark
       response_codes.all? { |code| code == 200 || code == 201 || code == 302 || code == 304 || code == 401 }
     end
 
-
-    private
-
     def average_response_time
       response_times.reduce(:+) / response_times.size
     end
