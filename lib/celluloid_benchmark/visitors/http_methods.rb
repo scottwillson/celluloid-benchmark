@@ -1,6 +1,24 @@
 module CelluloidBenchmark
   module Visitors
     module HTTPMethods
+      def get(uri, parameters = [], referer = nil, headers = {})
+        page = browser.get(uri, parameters, referer, headers)
+        log_response page
+        page
+      end
+
+      def post(uri, query = {}, headers = {})
+        page = browser.post(uri, query, headers)
+        log_response page
+        page
+      end
+
+      def put(uri, entity, headers = {})
+        page = browser.put(uri, entity, headers)
+        log_response page
+        page
+      end
+
       def get_json(uri, headers = {})
         get uri, [], nil, headers.merge("Accept" => "application/json, text/javascript, */*; q=0.01")
       end

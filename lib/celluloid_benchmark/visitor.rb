@@ -14,7 +14,7 @@ module CelluloidBenchmark
 
     extend Forwardable
 
-    def_delegators :@browser, :add_auth, :get, :post, :put, :submit, :transact
+    def_delegators :@browser, :add_auth, :submit, :transact
 
     attr_reader :benchmark_run
     attr_accessor :browser
@@ -90,6 +90,18 @@ module CelluloidBenchmark
       browser.post_connect_hooks << proc do |agent, uri, response, body|
         self.request_end_time = Time.now
         benchmark_run.async.log response.code, request_start_time, request_end_time, current_request_label, current_request_threshold
+      end
+    end
+
+    def log_response(page)
+      if benchmark_run
+        benchmark_run.async.log(
+          page.code,
+          request_start_time,
+          request_end_time,
+          current_request_label,
+          current_request_threshold
+        )
       end
     end
 
