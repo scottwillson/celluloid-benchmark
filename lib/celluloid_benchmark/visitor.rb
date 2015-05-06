@@ -16,7 +16,7 @@ module CelluloidBenchmark
 
     def_delegators :@browser, :add_auth, :submit, :transact
 
-    attr_reader :benchmark_run
+    attr_accessor :benchmark_run
     attr_accessor :browser
     attr_accessor :current_request_label
     attr_accessor :current_request_threshold
@@ -79,6 +79,45 @@ module CelluloidBenchmark
       end
     end
 
+    def log_response(page)
+      benchmark_run.async.log(
+        page.code,
+        request_start_time,
+        request_end_time,
+        server_response_time(page),
+        current_request_label,
+        current_request_threshold
+      )
+
+      true
+    end
+
+    def log_response_code_error(error)
+      self.request_end_time = Time.now
+      benchmark_run.async.log(
+        error.response_code,
+        request_start_time,
+        request_end_time,
+        server_response_time(browser.current_page),
+        current_request_label,
+        current_request_threshold
+      )
+      true
+    end
+
+    def log_network_error(error)
+      self.request_end_time = Time.now
+      benchmark_run.async.log(
+        500,
+        request_start_time,
+        request_end_time,
+        server_response_time(browser.current_page),
+        current_request_label,
+        current_request_threshold
+      )
+      true
+    end
+
 
     private
 
@@ -96,41 +135,6 @@ module CelluloidBenchmark
       if page && page["x-runtime"]
         page["x-runtime"].to_f
       end
-    end
-
-    def log_response(page)
-      if benchmark_run
-        benchmark_run.async.log(
-          page.code,
-          request_start_time,
-          request_end_time,
-          server_response_time(page),
-          current_request_label,
-          current_request_threshold
-        )
-      end
-    end
-
-    def log_response_code_error(error)
-      self.request_end_time = Time.now
-      benchmark_run.async.log(
-        error.response_code,
-        request_start_time,
-        request_end_time,
-        current_request_label,
-        current_request_threshold
-      )
-    end
-
-    def log_network_error(error)
-      self.request_end_time = Time.now
-      benchmark_run.async.log(
-        500,
-        request_start_time,
-        request_end_time,
-        current_request_label,
-        current_request_threshold
-      )
     end
   end
 end
