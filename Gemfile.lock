@@ -45,6 +45,7 @@ GEM
     rubysl-shellwords (2.0.0)
     rubysl-singleton (2.0.0)
     slop (4.1.0)
+    table_print (1.5.3)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -78,5 +79,6 @@ DEPENDENCIES
   rubysl-optparse
   rubysl-singleton
   slop (~> 4)
+  table_print
   thin
   timecop

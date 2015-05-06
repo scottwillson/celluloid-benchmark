@@ -41,7 +41,19 @@ module CelluloidBenchmark
     end
 
     def average_response_time
-      response_times.reduce(:+) / response_times.size
+      response_times.reduce(:+) / responses
+    end
+
+    def min_response_time
+      response_times.min
+    end
+
+    def max_response_time
+      response_times.max
+    end
+
+    def responses
+      response_times.size
     end
   end
 end

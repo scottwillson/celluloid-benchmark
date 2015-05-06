@@ -8,6 +8,7 @@ gem "mime-types", require: false
 gem "multi_json", require: false
 gem "rake", require: false
 gem "slop", "~> 4", require: false
+gem "table_print", require: false
 
 platform :rbx do
   # MRI includes by default, but Rubinius does not
