@@ -17,7 +17,7 @@ require_relative "../lib/celluloid_benchmark/visitor"
 benchmark_run = CelluloidBenchmark::Runner.run opts.to_hash
 
 puts
-benchmark_run.benchmarks.each do |trans|
+benchmark_run.benchmarks.sort_by(&:label).each do |trans|
   puts "#{trans.ok? ? '[ OK ]' : '[FAIL]'} #{trans.label}"
 end
 
