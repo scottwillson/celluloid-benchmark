@@ -62,7 +62,10 @@ module CelluloidBenchmark
 
     def network_time
       requests = network_times.values.flatten
-      requests.reduce(:+) / requests.size
+
+      if requests.size > 0
+        requests.reduce(:+) / requests.size
+      end
     end
 
     def benchmarks
