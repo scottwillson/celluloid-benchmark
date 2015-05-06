@@ -100,19 +100,19 @@ module CelluloidBenchmark
     end
 
     def test_random_data
-      browser = MockBrowser.new
       visitor = Visitor.new
-      visitor.browser = browser
 
       data_sources = Minitest::Mock.new
       data_source = Minitest::Mock.new
 
       data_source.expect :sample, 3
+      data_source.expect :size, 24
+      data_sources.expect :[], data_source, [ String ]
       data_sources.expect :[], data_source, [ String ]
 
       visitor.data_sources = data_sources
 
-      assert_equal 3, visitor.random_data("ids")
+      assert_equal 3, visitor.random_data("id")
     end
 
     def test_delegate_put_and_post
