@@ -26,6 +26,10 @@ module CelluloidBenchmark
       response_times_ok? && response_codes_ok?
     end
 
+    def error?
+      !response_codes_ok?
+    end
+
     # Consider average response time. Do not check for outlying slow times.
     def response_times_ok?
       if response_times.size > 0

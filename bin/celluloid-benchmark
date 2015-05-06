@@ -19,7 +19,7 @@ benchmark_run = CelluloidBenchmark::Runner.run opts.to_hash
 
 puts
 benchmark_run.benchmarks.sort_by(&:label).each do |trans|
-  puts "#{trans.ok? ? '[ OK ]' : '[FAIL]'} #{trans.label}"
+  puts "#{CelluloidBenchmark::TextFormatter.status_text(trans)} #{trans.label}"
 end
 
 puts

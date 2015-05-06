@@ -13,7 +13,7 @@ module CelluloidBenchmark
     def test_empy
       benchmark_run = BenchmarkRun.new
       silence_streams(STDOUT) do
-        CelluloidBenchmark::TextFormatter.to_s(benchmark_run)
+        TextFormatter.to_s(benchmark_run)
       end
     end
 
@@ -22,8 +22,19 @@ module CelluloidBenchmark
       benchmark_run.log 200, 3, 4, 0.1, "search", 1
 
       silence_streams(STDOUT) do
-        CelluloidBenchmark::TextFormatter.to_s(benchmark_run)
+        TextFormatter.to_s(benchmark_run)
       end
+    end
+
+    def test_status_text
+      benchmark = Benchmark.new("home", 1, [ 0.1 ], [ 200 ] )
+      assert_equal "[ OK ]", TextFormatter.status_text(benchmark)
+
+      benchmark = Benchmark.new("home", 1, [ 4 ], [ 200 ] )
+      assert_equal "[FAIL]", TextFormatter.status_text(benchmark)
+
+      benchmark = Benchmark.new("home", 1, [ 0.2 ], [ 500 ] )
+      assert_equal "[ERR ]", TextFormatter.status_text(benchmark)
     end
 
     def silence_streams(*streams)
