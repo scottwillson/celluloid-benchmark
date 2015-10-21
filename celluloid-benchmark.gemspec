@@ -19,7 +19,7 @@ forpec high concurrency. Use Mechanize for a realistic (albeit non-JavaScript) b
   spec.require_paths = [ "lib" ]
 
   # Duplication with Gemfile but I like to explicitly require gems
-  spec.add_runtime_dependency "celluloid", "~> 0.16.0"
+  spec.add_runtime_dependency "celluloid", "~> 0.17.0"
   spec.add_runtime_dependency "mechanize", "~> 2.7"
   spec.add_runtime_dependency "racc", "~> 1"
   spec.add_runtime_dependency "multi_json"

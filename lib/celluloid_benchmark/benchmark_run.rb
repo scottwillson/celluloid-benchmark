@@ -1,6 +1,6 @@
 require "logger"
 
-require "celluloid"
+require "celluloid/current"
 require_relative "benchmark"
 
 module CelluloidBenchmark

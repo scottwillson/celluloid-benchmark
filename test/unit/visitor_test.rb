@@ -1,6 +1,6 @@
 require "minitest"
 require "minitest/autorun"
-require "celluloid"
+require "celluloid/current"
 require_relative "../../lib/celluloid_benchmark/benchmark_run"
 require_relative "../../lib/celluloid_benchmark/session"
 require_relative "../../lib/celluloid_benchmark/visitor"

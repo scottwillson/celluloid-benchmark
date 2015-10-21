@@ -1,4 +1,4 @@
-require "celluloid"
+require "celluloid/current"
 require_relative "session"
 require_relative "target"
 require_relative "visitor_group"
