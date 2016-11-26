@@ -1,0 +1,10 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+#################### Lint ################################
+
+Style/StringLiterals:
+  EnforcedStyle: "double_quotes"
+
+Metrics/LineLength:
+  Max: 160
