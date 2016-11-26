@@ -15,6 +15,10 @@ platform :rbx do
   gem "racc"
 end
 
+group :development do
+  gem "rubocop", require: false
+end
+
 group :test do
   gem "fakeweb", require: false
   gem "minitest", require: false
