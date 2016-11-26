@@ -9,7 +9,7 @@ module CelluloidBenchmark
       key ||= "local"
       config_file_path ||= "config/targets.yml"
 
-      if key == "local" && !File.exists?(config_file_path)
+      if key == "local" && !File.exist?(config_file_path)
         return default_target
       end
 

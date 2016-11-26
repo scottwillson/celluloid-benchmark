@@ -15,7 +15,7 @@ module CelluloidBenchmark
     attr_reader :thresholds
 
     def initialize
-      if !Dir.exists?("log")
+      if !Dir.exist?("log")
         FileUtils.mkdir "log"
       end
 
