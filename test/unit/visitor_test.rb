@@ -238,14 +238,5 @@ module CelluloidBenchmark
       visitor.browser = browser
       assert visitor.log_response_code_error(FakeError.new)
     end
-
-    def test_log_network_error
-      browser = MockBrowser.new
-      visitor = Visitor.new
-      visitor.benchmark_run = BenchmarkRun.new
-
-      visitor.browser = browser
-      assert visitor.log_network_error(FakeError.new)
-    end
   end
 end
