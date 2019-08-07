@@ -55,7 +55,7 @@ GEM
       ast (~> 2.4.0)
     powerpack (0.1.2)
     racc (1.4.14)
-    rack (1.6.5)
+    rack (1.6.11)
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
