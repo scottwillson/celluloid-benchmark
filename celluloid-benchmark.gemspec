@@ -20,10 +20,10 @@ forpec high concurrency. Use Mechanize for a realistic (albeit non-JavaScript) b
 
   # Duplication with Gemfile but I like to explicitly require gems
   spec.add_runtime_dependency "celluloid", "~> 0.17.0"
-  spec.add_runtime_dependency "mechanize", "~> 2.7"
-  spec.add_runtime_dependency "racc", "~> 1"
+  spec.add_runtime_dependency "mechanize"
+  spec.add_runtime_dependency "racc"
   spec.add_runtime_dependency "multi_json"
-  spec.add_runtime_dependency "mime-types", "~> 1.25"
-  spec.add_runtime_dependency "slop", "~> 3.6"
+  spec.add_runtime_dependency "mime-types"
+  spec.add_runtime_dependency "slop"
   spec.add_runtime_dependency "table_print"
 end

@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Duplication with gemspec but I like to explicitly require gems
 
@@ -20,7 +21,7 @@ group :development do
 end
 
 group :test do
-  gem "fakeweb", require: false
+  gem "fakeweb", github: "chrisk/fakeweb", require: false
   gem "minitest", require: false
   gem "rack-contrib", require: false
 

@@ -87,7 +87,7 @@ module CelluloidBenchmark
 
     def test_mark_start
       benchmark_run = BenchmarkRun.new
-      assert_equal nil, benchmark_run.started_at, "started_at"
+      assert_nil benchmark_run.started_at, "started_at"
 
       Timecop.freeze(Time.new(2001, 4, 5, 18, 30)) do
         benchmark_run.mark_start
@@ -98,7 +98,7 @@ module CelluloidBenchmark
 
     def test_mark_end
       benchmark_run = BenchmarkRun.new
-      assert_equal nil, benchmark_run.ended_at, "ended_at"
+      assert_nil benchmark_run.ended_at, "ended_at"
 
       Timecop.freeze(Time.new(2001, 4, 5, 18, 30)) do
         benchmark_run.mark_end
@@ -132,7 +132,7 @@ module CelluloidBenchmark
       benchmark_run = BenchmarkRun.new
       assert_equal Hash.new, benchmark_run.network_times
 
-      assert_equal nil, benchmark_run.network_time
+      assert_nil benchmark_run.network_time
 
       benchmark_run.log 200, 3, 4, 0.1, "search", 0
       assert_equal({ "search" => [ 0.9 ] }, benchmark_run.network_times)
