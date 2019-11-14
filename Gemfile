@@ -21,9 +21,9 @@ group :development do
 end
 
 group :test do
-  gem "fakeweb", github: "chrisk/fakeweb", require: false
   gem "minitest", require: false
   gem "rack-contrib", require: false
+  gem "webmock"
 
   # Thin requires Ruby standard libs that
   # Rubinius does not provide by default

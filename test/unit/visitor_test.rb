@@ -4,9 +4,7 @@ require "celluloid/current"
 require_relative "../../lib/celluloid_benchmark/benchmark_run"
 require_relative "../../lib/celluloid_benchmark/session"
 require_relative "../../lib/celluloid_benchmark/visitor"
-require "fakeweb"
-
-FakeWeb.allow_net_connect = false
+require "webmock/minitest"
 
 module CelluloidBenchmark
   # Visitor#run_session is the central purpose of this gem, but best tested in an integration test,
@@ -67,12 +65,16 @@ module CelluloidBenchmark
     end
 
     def setup
+      WebMock.disable_net_connect!
+      WebMock.stub_request(:get, "https://github.com/scottwillson/celluloid-benchmark")
+             .to_return(status: 200, body: "<html>OK</html>", headers: { "x-runtime": 0.173 })
+
       # minitest and Celluloid both use at_exit
       Celluloid.boot
     end
 
     def test_run_session
-      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
+      WebMock.stub_request(:get, "https://github.com/scottwillson/celluloid-benchmark").to_return(status: 200, body: "<html>OK</html>", headers: {})
 
       browser = MockBrowser.new
       visitor = Visitor.new
@@ -188,8 +190,6 @@ module CelluloidBenchmark
     end
 
     def test_log_error_pages
-      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
-
       browser = MockBrowser.new
       visitor = Visitor.new
       visitor.browser = browser
@@ -205,8 +205,6 @@ module CelluloidBenchmark
     end
 
     def test_log_network_error
-      FakeWeb.register_uri(:get, "https://github.com/scottwillson/celluloid-benchmark", :body => "<html>OK</html>")
-
       browser = MockBrowser.new
       visitor = Visitor.new
       visitor.browser = browser
