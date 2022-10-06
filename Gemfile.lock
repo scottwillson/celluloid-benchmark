@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.0)
     celluloid (0.17.4)
       celluloid-essentials
@@ -59,7 +59,7 @@ GEM
     parallel (1.18.0)
     parser (2.6.5.0)
       ast (~> 2.4.0)
-    public_suffix (4.0.1)
+    public_suffix (5.0.0)
     racc (1.4.15)
     rack (2.2.3)
     rack-contrib (2.1.0)
